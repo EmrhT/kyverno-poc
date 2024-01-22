@@ -1,0 +1,25 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: all-containers-need-requests-and-limits
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: check-container-resources
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: "All containers must have CPU and memory resource requests and limits defined."
+      pattern:
+        spec:
+          containers:
+          - name: "*" # apply to all containers
+            resources:
+              limits:
+                memory: "?*" # any amount of memory is required
+              requests:
+                memory: "?*" # any amount of memory is required
+                cpu: "?*" # any amount of cpu is required

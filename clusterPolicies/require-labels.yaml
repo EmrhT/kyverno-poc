@@ -1,10 +1,11 @@
-# sample policy that requires a "team" label on pods
+# sample policy with a rule that requires a "team" label on pods
 apiVersion: kyverno.io/v1
 kind: ClusterPolicy
 metadata:
   name: require-labels
 spec:
-  validationFailureAction: Enforce
+  validationFailureAction: Enforce # default value is Audit
+  webhookTimeoutSeconds: 30
   rules:
   - name: check-team
     match:
@@ -12,6 +13,11 @@ spec:
       - resources:
           kinds:
           - Pod
+    exclude:
+      any:
+      - resources:
+          kinds:
+          - Namespace
     validate:
       message: "label 'team' is required"
       pattern:
