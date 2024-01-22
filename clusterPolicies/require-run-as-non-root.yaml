@@ -1,0 +1,29 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-run-as-non-root
+spec:
+  background: true
+  validationFailureAction: Enforce
+  rules:
+  - name: check-containers
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      message: >-
+        Running as root is not allowed. The fields spec.securityContext.runAsNonRoot,
+        spec.containers[*].securityContext.runAsNonRoot, and
+        spec.initContainers[*].securityContext.runAsNonRoot must be `true`.                
+      pattern:
+      # By default, all containers run as root in K8S. To harden this config,
+      # all containers and initContainers must define (not optional) runAsNonRoot=true.
+      - spec:
+          containers:
+          - securityContext:
+              runAsNonRoot: true
+          =(initContainers):
+          - securityContext:
+              runAsNonRoot: true
