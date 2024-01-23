@@ -20,6 +20,10 @@ spec:
       - resources:
           kinds:
           - Pod/exec
+    exclude:
+      any:
+      - clusterRoles:
+        - cluster-admin
     preconditions:
       all:
       - key: "{{ request.operation || 'BACKGROUND' }}"

@@ -1,0 +1,38 @@
+# For all containers and init containers, disallow latest tag to be used
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-latest-tag
+spec:
+  validationFailureAction: Enforce
+  rules:
+  - name: validate-container-image-tags
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "Using the `latest` tag in `containers` is not allowed."
+      foreach:
+      - list: "request.object.spec.containers[]"
+        deny:
+          conditions:
+            all:
+            - key: "{{ regex_match('.*:latest$', '{{element.image}}') }}"
+              operator: Equals
+              value: true
+  - name: validate-initcontainer-image-tags
+    match:
+      resources:
+        kinds:
+        - Pod
+    validate:
+      message: "Using the `latest` tag in `initContainers` is not allowed."
+      foreach:
+      - list: "request.object.spec.initContainers[]"
+        deny:
+          conditions:
+            all:
+            - key: "{{ regex_match('.*:latest$', '{{element.image}}') }}"
+              operator: Equals
+              value: true
