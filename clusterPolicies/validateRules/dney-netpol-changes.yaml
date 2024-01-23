@@ -1,0 +1,22 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: deny-netpol-changes
+# Deny change on network policies except cluster admins
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+  - name: deny-netpol-changes
+    match:
+      any:
+      - resources:
+          kinds:
+          - NetworkPolicy
+    exclude:
+      any:
+      - clusterRoles:
+        - cluster-admin
+    validate:
+      message: "Changing default network policies is not allowed."
+      deny: {}
