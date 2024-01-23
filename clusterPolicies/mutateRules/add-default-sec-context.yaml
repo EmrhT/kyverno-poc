@@ -1,0 +1,21 @@
+# Mutating policy which adds security context to pods which does not have.
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-default-securitycontext
+spec:
+  rules:
+  - name: add-default-securitycontext
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    mutate:
+      patchStrategicMerge:
+        spec:
+          securityContext:
+            +(runAsNonRoot): true
+            +(runAsUser): 1000
+            +(runAsGroup): 3000
+            +(fsGroup): 2000

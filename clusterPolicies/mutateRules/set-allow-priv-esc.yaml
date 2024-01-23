@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: set-allowprivescalation
+spec:
+  rules:
+  - name: set-allowprivescalation
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    mutate:
+      foreach:
+      - list: "request.object.spec.containers[]"
+        patchStrategicMerge:
+          spec:
+            containers:
+            - (name): "{{ element.name }}"
+              securityContext:
+                +(allowPrivilegeEscalation): false
