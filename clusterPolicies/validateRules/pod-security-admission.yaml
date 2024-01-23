@@ -1,0 +1,19 @@
+# Clusterpolicy to enforce baseline PodSecurityAdmission
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: psa
+spec:
+  background: true
+  validationFailureAction: Enforce
+  rules:
+  - name: baseline
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    validate:
+      podSecurity:
+        level: baseline
+        version: latest
