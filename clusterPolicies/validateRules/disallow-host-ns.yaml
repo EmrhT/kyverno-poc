@@ -1,3 +1,4 @@
+# this policy disallows host namespace privileges to be given to pods
 apiVersion: kyverno.io/v2beta1
 kind: ClusterPolicy
 metadata:
