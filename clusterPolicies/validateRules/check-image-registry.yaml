@@ -1,0 +1,29 @@
+apiVersion : kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: check-images
+# restrict usage of image registries to a whitelist of choice
+spec:
+  validationFailureAction: Enforce
+  background: false
+  rules:
+  - name: check-registry
+    match:
+      any:
+      - resources:
+          kinds:
+          - Pod
+    preconditions:
+      any:
+      - key: "{{request.operation}}"
+        operator: NotEquals
+        value: DELETE
+    validate:
+      message: "unknown registry, please use trusted-registry.io"  
+      foreach: # foreach to check each container image in a workload if there are more than one.
+      - list: "request.object.spec.initContainers"
+        pattern:
+          image: "trusted-registry.io/*"      
+      - list: "request.object.spec.containers"
+        pattern:
+          image: "trusted-registry.io/*"
