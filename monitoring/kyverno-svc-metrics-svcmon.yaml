@@ -19,4 +19,4 @@ spec:
     - kyverno
   selector:
     matchLabels:
-      app.kubernetes.io/name: kyverno-svc-metric
+      app.kubernetes.io/instance: kyverno
