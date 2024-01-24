@@ -4,6 +4,7 @@ metadata:
   name: all-containers-need-requests-and-limits
 spec:
   validationFailureAction: Enforce
+  background: true
   rules:
   - name: check-container-resources
     match:

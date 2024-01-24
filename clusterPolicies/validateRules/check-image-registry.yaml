@@ -5,7 +5,7 @@ metadata:
 # restrict usage of image registries to a whitelist of choice
 spec:
   validationFailureAction: Enforce
-  background: false
+  background: true
   rules:
   - name: check-registry
     match:

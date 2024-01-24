@@ -5,6 +5,7 @@ metadata:
   name: disallow-latest-tag
 spec:
   validationFailureAction: Enforce
+  background: true
   rules:
   - name: validate-container-image-tags
     match:

@@ -5,6 +5,7 @@ metadata:
   name: require-labels
 spec:
   validationFailureAction: Enforce # default value is Audit
+  background: true
   webhookTimeoutSeconds: 30
   rules:
   - name: check-team

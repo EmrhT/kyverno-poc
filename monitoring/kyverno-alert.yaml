@@ -1,0 +1,32 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  annotations:
+    meta.helm.sh/release-name: kube-prometheus-stack
+    meta.helm.sh/release-namespace: monitoring
+    prometheus-operator-validated: "true"
+  labels:
+    app: kube-prometheus-stack
+    app.kubernetes.io/instance: kube-prometheus-stack
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: kube-prometheus-stack
+    app.kubernetes.io/version: 56.0.3
+    chart: kube-prometheus-stack-56.0.3
+    heritage: Helm
+    release: kube-prometheus-stack
+  name: kube-prometheus-stack-general2.rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: general2.rules
+    rules:
+    - alert: ExampleAlert
+      expr: vector(1)
+    - alert: KyvernoAlert
+      annotations:
+        summary: Following Kyverno policies was violated. Please take action!
+      expr: policy_report_result{policy=~".*", category=~".*", severity=~".*", source=~".*",
+        kind=~".*", exported_namespace=~".*", status="fail" } > 0
+      for: 10s
+      labels:
+        severity: critical

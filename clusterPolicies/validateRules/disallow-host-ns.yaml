@@ -5,7 +5,7 @@ metadata:
   name: disallow-host-namespaces
 spec:
   validationFailureAction: Enforce
-  background: false
+  background: true
   rules:
     - name: host-namespaces
       match:
