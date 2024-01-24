@@ -1,3 +1,6 @@
+# for policy reports and their corresponding dashboards
+# see https://kyverno.github.io/policy-reporter/guide/getting-started
+
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
