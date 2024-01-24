@@ -1146,9 +1146,9 @@ admissionController:
 
   tracing:
     # -- Enable tracing
-    enabled: false
+    enabled: true
     # -- Traces receiver address
-    address:
+    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
     # -- Traces receiver port
     port:
     # -- Traces receiver credentials
@@ -1434,11 +1434,11 @@ backgroundController:
 
   tracing:
     # -- Enable tracing
-    enabled: false
+    enabled: true
     # -- Traces receiver address
-    address:
+    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
     # -- Traces receiver port
-    port:
+    port: 16686
     # -- Traces receiver credentials
     creds: ''
 
@@ -1991,11 +1991,11 @@ reportsController:
 
   tracing:
     # -- Enable tracing
-    enabled: false
+    enabled: true
     # -- (string) Traces receiver address
-    address: ~
+    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
     # -- (string) Traces receiver port
-    port: ~
+    port: 16686
     # -- (string) Traces receiver credentials
     creds: ~
 
