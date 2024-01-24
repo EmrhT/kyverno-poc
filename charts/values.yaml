@@ -1729,11 +1729,11 @@ cleanupController:
 
   tracing:
     # -- Enable tracing
-    enabled: false
+    enabled: true
     # -- Traces receiver address
-    address:
+    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
     # -- Traces receiver port
-    port:
+    port: 16686
     # -- Traces receiver credentials
     creds: ''
 
