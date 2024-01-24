@@ -1148,9 +1148,9 @@ admissionController:
     # -- Enable tracing
     enabled: true
     # -- Traces receiver address
-    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
+    address: my-otel-demo-jaeger-collector.otel-demo.svc.cluster.local
     # -- Traces receiver port
-    port:
+    port: 4317
     # -- Traces receiver credentials
     creds: ''
 
@@ -1436,9 +1436,9 @@ backgroundController:
     # -- Enable tracing
     enabled: true
     # -- Traces receiver address
-    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
+    address: my-otel-demo-jaeger-collector.otel-demo.svc.cluster.local
     # -- Traces receiver port
-    port: 16686
+    port: 4317
     # -- Traces receiver credentials
     creds: ''
 
@@ -1731,9 +1731,9 @@ cleanupController:
     # -- Enable tracing
     enabled: true
     # -- Traces receiver address
-    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
+    address: my-otel-demo-jaeger-collector.otel-demo.svc.cluster.local
     # -- Traces receiver port
-    port: 16686
+    port: 4317
     # -- Traces receiver credentials
     creds: ''
 
@@ -1993,9 +1993,9 @@ reportsController:
     # -- Enable tracing
     enabled: true
     # -- (string) Traces receiver address
-    address: my-otel-demo-jaeger-query.otel-demo.svc.cluster.local
+    address: my-otel-demo-jaeger-collector.otel-demo.svc.cluster.local
     # -- (string) Traces receiver port
-    port: 16686
+    port: 4317
     # -- (string) Traces receiver credentials
     creds: ~
 
