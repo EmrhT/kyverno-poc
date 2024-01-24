@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  annotations:
+    meta.helm.sh/release-name: kube-prometheus-stack
+    meta.helm.sh/release-namespace: monitoring
+  labels:
+    release: kube-prometheus-stack
+  name: kube-prometheus-stack-kyverno
+  namespace: monitoring
+spec:
+  endpoints:
+  - path: /metrics
+    port: metrics-port
+    scheme: http
+    scrapeTimeout: 10s
+  namespaceSelector:
+    matchNames:
+    - kyverno
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: kyverno-svc-metric

@@ -13,10 +13,10 @@ spec:
         - resources:
             kinds:
               - Pod
-      exclude:
-        any:
-        - clusterRoles:
-          - cluster-admin
+      # exclude:
+      #   any:
+      #   - clusterRoles:
+      #     - cluster-admin
       validate:
         message: >-
           Sharing the host namespaces is disallowed. The fields spec.hostNetwork,
